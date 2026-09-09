@@ -12,6 +12,7 @@ DPS_MAP_FILE = f"/home2/supranta/PosteriorSampling/denoising_diffusion_pytorch/d
 PAIRS_FILE = 'redmapper_cluster_pairs.csv'   # <-- match get_cluster_pairs.py output
 OUTPUT_DIR = 'filaments'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
+FILE_SUFFIX = "_comoving"
 
 GRID_MIN, GRID_MAX = -2.0, 2.0
 GRID_RES = 200
@@ -217,7 +218,7 @@ def save_null_triplet(null_left, null_right, null_total):
     cbar = fig.colorbar(im, cax=axes[3])
     cbar.set_label(r'DPS $\kappa$ Signal', fontsize=12)
 
-    fname = os.path.join(OUTPUT_DIR, f'dps_null_maps_tomo{TOMO_BIN}_comoving.png')
+    fname = os.path.join(OUTPUT_DIR, f'dps_null_maps_tomo{TOMO_BIN}{FILE_SUFFIX}.png')
     plt.savefig(fname, dpi=300)
     plt.close()
     print(f"Saved to {fname}")
@@ -230,9 +231,9 @@ def main():
     dps_map = dps_map - np.mean(dps_map)
 
     true_stack = stack_true_filament()
-    np.save(os.path.join(OUTPUT_DIR, f'true_stack_tomo{TOMO_BIN}_comoving.npy'), true_stack)
+    np.save(os.path.join(OUTPUT_DIR, f'true_stack_tomo{TOMO_BIN}{FILE_SUFFIX}.npy'), true_stack)
     _save_map(true_stack,
-               os.path.join(OUTPUT_DIR, f'dps_true_stack_tomo{TOMO_BIN}_comoving.png'),
+               os.path.join(OUTPUT_DIR, f'dps_true_stack_tomo{TOMO_BIN}{FILE_SUFFIX}.png'),
                f'Stacked DPS Reconstruction (Tomo Bin {TOMO_BIN})',
                r'DPS $\kappa$ Signal')
 
@@ -241,36 +242,36 @@ def main():
     null_right = stack_cluster_null(dps_map, df, target_side='R')
     null_total = null_left + null_right
 
-    np.save(os.path.join(OUTPUT_DIR, f'null_left_tomo{TOMO_BIN}_comoving.npy'), null_left)
-    np.save(os.path.join(OUTPUT_DIR, f'null_right_tomo{TOMO_BIN}_comoving.npy'), null_right)
-    np.save(os.path.join(OUTPUT_DIR, f'null_total_tomo{TOMO_BIN}_comoving.npy'), null_total)
+    np.save(os.path.join(OUTPUT_DIR, f'null_left_tomo{TOMO_BIN}{FILE_SUFFIX}.npy'), null_left)
+    np.save(os.path.join(OUTPUT_DIR, f'null_right_tomo{TOMO_BIN}{FILE_SUFFIX}.npy'), null_right)
+    np.save(os.path.join(OUTPUT_DIR, f'null_total_tomo{TOMO_BIN}{FILE_SUFFIX}.npy'), null_total)
     
     print("Generating clean side-by-side comparison plot...")
     
     _side_by_side(true_stack, null_total,
-                  os.path.join(OUTPUT_DIR, f'dps_comparison_linear_tomo{TOMO_BIN}_comoving.png'),
+                  os.path.join(OUTPUT_DIR, f'dps_comparison_linear_tomo{TOMO_BIN}{FILE_SUFFIX}.png'),
                   title_suffix=f'Tomo Bin {TOMO_BIN}', use_symlog=False)
     _side_by_side(true_stack, null_total,
-                  os.path.join(OUTPUT_DIR, f'dps_comparison_symlog_tomo{TOMO_BIN}_comoving.png'),
+                  os.path.join(OUTPUT_DIR, f'dps_comparison_symlog_tomo{TOMO_BIN}{FILE_SUFFIX}.png'),
                   title_suffix=f'Tomo Bin {TOMO_BIN}', use_symlog=True)
 
     _save_map(null_left,
-               os.path.join(OUTPUT_DIR, f'dps_null_left_tomo{TOMO_BIN}_comoving.png'),
+               os.path.join(OUTPUT_DIR, f'dps_null_left_tomo{TOMO_BIN}{FILE_SUFFIX}.png'),
                f'Null Mass Map - Left Cluster (Tomo Bin {TOMO_BIN})',
                r'DPS $\kappa$ Signal')
     _save_map(null_right,
-               os.path.join(OUTPUT_DIR, f'dps_null_right_tomo{TOMO_BIN}_comoving.png'),
+               os.path.join(OUTPUT_DIR, f'dps_null_right_tomo{TOMO_BIN}{FILE_SUFFIX}.png'),
                f'Null Mass Map - Right Cluster (Tomo Bin {TOMO_BIN})',
                r'DPS $\kappa$ Signal')
     _save_map(null_total,
-               os.path.join(OUTPUT_DIR, f'dps_null_total_tomo{TOMO_BIN}_comoving.png'),
+               os.path.join(OUTPUT_DIR, f'dps_null_total_tomo{TOMO_BIN}{FILE_SUFFIX}.png'),
                f'Null Mass Map - Sum (Tomo Bin {TOMO_BIN})',
                r'DPS $\kappa$ Signal')
     save_null_triplet(null_left, null_right, null_total)
 
     # Subtract null baseline from the true stack to isolate the filament (Figure 4)
     filament_map = true_stack - null_total
-    np.save(os.path.join(OUTPUT_DIR, f'filament_map_tomo{TOMO_BIN}_comoving.npy'), filament_map)
+    np.save(os.path.join(OUTPUT_DIR, f'filament_map_tomo{TOMO_BIN}{FILE_SUFFIX}.npy'), filament_map)
 
     print("Plotting final subtracted mass map...")
     plt.figure(figsize=(8, 7))
@@ -289,7 +290,7 @@ def main():
     plt.ylabel('y', fontsize=14)
     plt.title(f'Subtracted Mass Map (Tomo Bin {TOMO_BIN})', fontsize=14)
 
-    output_image = os.path.join(OUTPUT_DIR, f'dps_filament_subtracted_tomo{TOMO_BIN}_comoving.png')
+    output_image = os.path.join(OUTPUT_DIR, f'dps_filament_subtracted_tomo{TOMO_BIN}{FILE_SUFFIX}.png')
     plt.tight_layout()
     plt.savefig(output_image, dpi=300)
     print(f"Saved to {output_image}")
