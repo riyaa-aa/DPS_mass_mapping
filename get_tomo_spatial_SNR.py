@@ -49,9 +49,7 @@ def stack_signal(map_data, ra, dec, cutout_size_arcmin=30, res_arcmin=1.0):
 
     return stacked_map / n_clusters
 
-# ==========================================
 # EXECUTION
-# ==========================================
 if __name__ == "__main__":
     start_time = time.time()
 
@@ -93,9 +91,7 @@ if __name__ == "__main__":
     kappa_tilde = nulling_matrix @ kappa_raw 
     bin_idx = TARGET_BIN - 1
 
-    # ==========================================
-    # PIPELINE A: RAW TOMOGRAPHY (NO BNT)
-    # ==========================================
+    # RAW TOMOGRAPHY (NO BNT)
     print(f"\nProcessing Raw Tomography for Bin {TARGET_BIN}...")
     map_data_raw = kappa_raw[bin_idx]
     
@@ -116,9 +112,7 @@ if __name__ == "__main__":
     
     snr_map_raw = (signal_stack_raw - pop_mean_raw) / pop_std_raw
 
-    # ==========================================
-    # PIPELINE B: BNT TRANSFORMED
-    # ==========================================
+    # BNT TRANSFORMED
     print(f"\nProcessing BNT Transformed Map for Bin {TARGET_BIN}...")
     map_data_bnt = kappa_tilde[bin_idx]
 
@@ -144,9 +138,7 @@ if __name__ == "__main__":
     
     snr_map_bnt = (signal_stack_bnt - pop_mean_bnt) / pop_std_bnt
 
-    # ==========================================
     # PLOTTING: 1x2 COMPARISON
-    # ==========================================
     print("\nGenerating plots...")
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
     
