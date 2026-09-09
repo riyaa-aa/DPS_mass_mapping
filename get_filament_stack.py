@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from scipy.ndimage import gaussian_filter
+import time
 
 # 1. Configuration
 TOMO_BIN = 2
@@ -12,7 +13,11 @@ DPS_MAP_FILE = f"/home2/supranta/PosteriorSampling/denoising_diffusion_pytorch/d
 PAIRS_FILE = 'redmapper_cluster_pairs.csv'   # <-- match get_cluster_pairs.py output
 OUTPUT_DIR = 'filaments'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
-FILE_SUFFIX = "_comoving"
+FILE_SUFFIX = "_comoving3"
+# notes on suffixes:
+# _comoving3: newest files with the cleaned up, non-redundant code
+# _shuffled_comoving: pairs are shuffled so neither one is brighter
+# _comoving: using the comoving transverse distance to set dist range for cluster pairs
 
 GRID_MIN, GRID_MAX = -2.0, 2.0
 GRID_RES = 200
@@ -107,8 +112,8 @@ def stack_cluster_null(dps_map, df, target_side='L', num_rotations=NUM_ROTATIONS
         theta = _theta_for_row(row)
 
         # shift so the cluster sits at (x_offset, 0), matching its true stack position
-        X_scaled = (X_grid - x_offset) * sep_rad
-        Y_scaled = Y_grid * sep_rad
+        X_scaled = (X_GRID - x_offset) * sep_rad
+        Y_scaled = Y_GRID * sep_rad
         
         # restrict phi to [theta + pi/2, theta + 3pi/2] to rotate the filament
         # wedge and opposing cluster out of the evaluated region
@@ -194,7 +199,7 @@ def _side_by_side(true_stack, null_total, filename, title_suffix, use_symlog=Fal
 
 def save_null_triplet(null_left, null_right, null_total):
     """Figure-3-style panel: left null, right null, and their sum."""
-    fig, axes = plt.subplots(1, 4, figsize=(24, 6.5), constained_layout=True
+    fig, axes = plt.subplots(1, 4, figsize=(24, 6.5), constrained_layout=True,
                              gridspec_kw={'width_ratios':[1,1,1,0.05]})
     panels = [
         (null_left, 'Left cluster null'),
@@ -225,12 +230,15 @@ def save_null_triplet(null_left, null_right, null_total):
 
 
 def main():
+
+    start_time = time.perf_counter()
+
     df = pd.read_csv(PAIRS_FILE)
     print("Loading DPS map...")
     dps_map = hp.read_map(DPS_MAP_FILE, verbose=False)
     dps_map = dps_map - np.mean(dps_map)
 
-    true_stack = stack_true_filament()
+    true_stack = stack_true_filament(dps_map, df)
     np.save(os.path.join(OUTPUT_DIR, f'true_stack_tomo{TOMO_BIN}{FILE_SUFFIX}.npy'), true_stack)
     _save_map(true_stack,
                os.path.join(OUTPUT_DIR, f'dps_true_stack_tomo{TOMO_BIN}{FILE_SUFFIX}.png'),
@@ -294,6 +302,9 @@ def main():
     plt.tight_layout()
     plt.savefig(output_image, dpi=300)
     print(f"Saved to {output_image}")
+    
+    elapsed_time = time.perf_counter() - start_time
+    print(f"\nTotal execution time: {elapsed_time:.2f} seconds ({elapsed_time / 60:.2f} minutes)")
 
 
 if __name__ == "__main__":
