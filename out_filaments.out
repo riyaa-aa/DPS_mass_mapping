@@ -1,0 +1,12 @@
+NODES=1
+starting
+Wed Oct 7 09:25:35 PM EDT 2026
+running the thing
+Joint fit        box = +5.0090e-05  sigma = 1.83e-05  S/N = 2.78
+Joint fit + m2   box = +7.7445e-05  sigma = 2.45e-05  S/N = 3.18
+Saved to filaments/dps_true_stack_tomo2_joint_shuffled.png
+Saved to filaments/dps_null_total_tomo2_joint_shuffled.png
+Saved to filaments/dps_filament_map_tomo2_joint_shuffled.png
+Total time: 1.4 min
+ending
+Wed Oct 7 09:27:04 PM EDT 2026

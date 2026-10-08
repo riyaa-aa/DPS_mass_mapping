@@ -1,0 +1,60 @@
+NODES=1
+starting
+Mon Oct 5 04:37:39 PM EDT 2026
+running the thing
+/home2/rmaiya/DPS_mass_mapping/get_filament_stack.py:1586: SyntaxWarning: invalid escape sequence '\k'
+  """
+/home2/rmaiya/DPS_mass_mapping/get_filament_stack.py:1686: SyntaxWarning: invalid escape sequence '\k'
+  """
+Stacking true cluster pairs (clusters + filament)...
+Joint fit        box = +3.1034e-05  sigma = 9.72e-06  S/N = 3.23
+Stacking true cluster pairs (clusters + filament)...
+Joint fit + m2   box = +4.0148e-05  sigma = 1.26e-05  S/N = 3.20
+Saved to filaments/dps_true_stack_tomo1_manidk_plain.png
+Saved to filaments/dps_null_total_tomo1_manidk_plain.png
+Plotting final subtracted mass map...
+Saved to filaments/dps_filament_map_tomo1_manidk_plain.png
+Saved to filaments/dps_true_stack_tomo1_manidk_m2.png
+Saved to filaments/dps_null_total_tomo1_manidk_m2.png
+Plotting final subtracted mass map...
+Saved to filaments/dps_filament_map_tomo1_manidk_m2.png
+m2 - plain joint (alignment systematic): +9.114e-06
+Total time: 1.4 min
+/home2/rmaiya/DPS_mass_mapping/get_filament_stack.py:1586: SyntaxWarning: invalid escape sequence '\k'
+  """
+/home2/rmaiya/DPS_mass_mapping/get_filament_stack.py:1686: SyntaxWarning: invalid escape sequence '\k'
+  """
+Stacking true cluster pairs (clusters + filament)...
+Joint fit        box = +5.0090e-05  sigma = 1.83e-05  S/N = 2.78
+Stacking true cluster pairs (clusters + filament)...
+Joint fit + m2   box = +7.7445e-05  sigma = 2.45e-05  S/N = 3.18
+Saved to filaments/dps_true_stack_tomo2_manidk_plain.png
+Saved to filaments/dps_null_total_tomo2_manidk_plain.png
+Plotting final subtracted mass map...
+Saved to filaments/dps_filament_map_tomo2_manidk_plain.png
+Saved to filaments/dps_true_stack_tomo2_manidk_m2.png
+Saved to filaments/dps_null_total_tomo2_manidk_m2.png
+Plotting final subtracted mass map...
+Saved to filaments/dps_filament_map_tomo2_manidk_m2.png
+m2 - plain joint (alignment systematic): +2.736e-05
+Total time: 1.5 min
+/home2/rmaiya/DPS_mass_mapping/get_filament_stack.py:1586: SyntaxWarning: invalid escape sequence '\k'
+  """
+/home2/rmaiya/DPS_mass_mapping/get_filament_stack.py:1686: SyntaxWarning: invalid escape sequence '\k'
+  """
+Stacking true cluster pairs (clusters + filament)...
+Joint fit        box = +6.4911e-05  sigma = 3.06e-05  S/N = 2.15
+Stacking true cluster pairs (clusters + filament)...
+Joint fit + m2   box = +1.1089e-04  sigma = 4.13e-05  S/N = 2.70
+Saved to filaments/dps_true_stack_tomo3_manidk_plain.png
+Saved to filaments/dps_null_total_tomo3_manidk_plain.png
+Plotting final subtracted mass map...
+Saved to filaments/dps_filament_map_tomo3_manidk_plain.png
+Saved to filaments/dps_true_stack_tomo3_manidk_m2.png
+Saved to filaments/dps_null_total_tomo3_manidk_m2.png
+Plotting final subtracted mass map...
+Saved to filaments/dps_filament_map_tomo3_manidk_m2.png
+m2 - plain joint (alignment systematic): +4.598e-05
+Total time: 1.5 min
+ending
+Mon Oct 5 04:42:08 PM EDT 2026
